@@ -18,8 +18,9 @@ endif()
 
 
 # Sources
-file(GLOB OPTICK_SRC "src/*.*")
-source_group("OptickCore" FILES ${OPTICK_SRC})
+file(GLOB OPTICK_SRC "src/*.cpp")
+file(GLOB OPTICK_HDRS "src/*.h")
+source_group("OptickCore" FILES ${OPTICK_SRC} ${OPTICK_HDRS})
 
 
 # Enabled
@@ -29,7 +30,7 @@ option(OPTICK_INSTALL_TARGETS "Should optick be installed? Set to OFF if you use
 if(NOT OPTICK_ENABLED)
 	message(STATUS "Optick is disabled")
 	# add dummy target as a replacement
-	add_library(OptickCore STATIC ${OPTICK_SRC})
+	add_library(OptickCore STATIC ${OPTICK_SRC} ${OPTICK_HDRS})
 	target_include_directories(OptickCore PUBLIC "src")
 	target_compile_definitions(OptickCore PUBLIC USE_OPTICK=0)
 	return()
@@ -43,7 +44,7 @@ option(OPTICK_BUILD_GUI_APP "Build Optick gui viewer app" OFF)
 option(OPTICK_BUILD_CONSOLE_SAMPLE "Build Optick console sample app" ${standalone})
 
 # OptickCore
-add_library(OptickCore SHARED ${OPTICK_SRC})
+add_library(OptickCore SHARED ${OPTICK_SRC} ${OPTICK_HDRS})
 target_include_directories(OptickCore
 	PUBLIC
 		$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/src>
