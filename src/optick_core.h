@@ -335,6 +335,11 @@ struct ThreadEntry
 	ThreadEntry(const ThreadDescription& desc, EventStorage** tls) : description(desc), threadTLS(tls), isAlive(true) {}
 	void Activate(Mode::Type mode);
 	void Sort();
+	~ThreadEntry(){
+		if((*threadTLS)!=nullptr){
+		    *threadTLS = nullptr;
+        	}
+    	}
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
