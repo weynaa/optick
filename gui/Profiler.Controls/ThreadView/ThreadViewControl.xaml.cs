@@ -500,7 +500,11 @@ namespace Profiler.Controls
 
 					for (int i = 0; i < SelectionBorderCount; ++i)
 					{
-						rect.Inflate(SelectionBorderStep, SelectionBorderStep);
+                        if (rect.IsEmpty)
+                        {
+                            break;
+                        }
+                        rect.Inflate(SelectionBorderStep, SelectionBorderStep);
 						SelectionMesh.AddRect(rect, FrameSelection.Color);
 					}
 				}
